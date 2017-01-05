@@ -1,0 +1,7 @@
+set(UCC_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(UCC_SRC_PATH ${UCC_PATH}/Src)
+set(UCC_FILES_SRC ${UCC_SRC_PATH}/UCC.cpp)
+add_executable(UCC ${UCC_FILES_SRC})
+source_group(Src FILES ${UCC_FILES_SRC})
+target_compile_definitions(UCC PRIVATE ThisPackage=UCC)
+target_link_libraries(UCC Core Engine)

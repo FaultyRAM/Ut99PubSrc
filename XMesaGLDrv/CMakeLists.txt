@@ -1,0 +1,12 @@
+set(XMESAGLDRV_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(XMESAGLDRV_SRC_PATH ${XMESAGLDRV_PATH}/Src)
+set(XMESAGLDRV_FILES_SRC
+    ${XMESAGLDRV_SRC_PATH}/XMesaGLDrv.h
+    ${XMESAGLDRV_SRC_PATH}/XMesaGLFuncs.h
+    ${XMESAGLDRV_SRC_PATH}/XMesaGL.cpp
+    ${XMESAGLDRV_SRC_PATH}/XMesaGLDrv.cpp)
+add_library(XMesaGLDrv MODULE ${XMESAGLDRV_FILES_SRC})
+source_group(Src ${XMESAGLDRV_FILES_SRC})
+target_compile_definitions(XMesaGLDrv PRIVATE GPackage=GPackageXMesaGLDrv)
+target_include_directories(XMesaGLDrv PRIVATE ${OPENGL_INCLUDE_DIR} ${X11_INCLUDE_DIR})
+target_link_libraries(XMesaGLDrv Core Engine ${OPENGL_LIBRARIES} ${X11_LIBRARIES})

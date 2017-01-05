@@ -360,8 +360,9 @@ public:
 		guard(FMallocWindows::HeapCheck);
 		for( INT i=0; i<POOL_COUNT; i++ )
 		{
-			FPoolTable* Table = &PoolTable[i];
-			for( FPoolInfo** PoolPtr=&Table->FirstPool; *PoolPtr; PoolPtr=&(*PoolPtr)->Next )
+			FPoolInfo** PoolPtr;
+			FPoolTable* Table;
+			for( Table = &PoolTable[i], PoolPtr=&Table->FirstPool; *PoolPtr; PoolPtr=&(*PoolPtr)->Next )
 			{
 				FPoolInfo* Pool=*PoolPtr;
 				check(Pool->PrevLink==PoolPtr);
@@ -394,7 +395,8 @@ public:
 		OsTable.FirstPool    = NULL;
 		OsTable.ExaustedPool = NULL;
 		OsTable.BlockSize    = 0;
-		for( DWORD i=0; i<POOL_COUNT; i++ )
+		DWORD i;
+		for( i=0; i<POOL_COUNT; i++ )
 		{
 			PoolTable[i].FirstPool    = NULL;
 			PoolTable[i].ExaustedPool = NULL;
@@ -402,7 +404,8 @@ public:
 		}
 		for( i=0; i<POOL_MAX; i++ )
 		{
-			for( DWORD Index=0; PoolTable[Index].BlockSize<i; Index++ );
+			DWORD Index;
+			for( Index=0; PoolTable[Index].BlockSize<i; Index++ );
 			checkSlow(Index<POOL_COUNT);
 			MemSizeToPoolTable[i] = &PoolTable[Index];
 		}

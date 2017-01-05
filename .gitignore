@@ -1,0 +1,11 @@
+.vscode
+Win32
+build
+*Classes.h
+*.aps
+*.dll
+*.exe
+*.ini
+*.int
+*.log
+*.u

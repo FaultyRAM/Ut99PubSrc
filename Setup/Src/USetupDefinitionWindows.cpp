@@ -16,7 +16,7 @@ Revision history:
 #include <errno.h>
 #include <stdio.h>
 #include <sys/stat.h>
-#include "..\..\DirectX6\Inc\DSetup.h"
+#include <dsetup.h>
 #include "Res\resource.h"
 #include "SetupPrivate.h"
 #include "USetupDefinitionWindows.h"

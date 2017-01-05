@@ -18,6 +18,7 @@
 #include "UnRender.h"
 
 // Direct3D includes.
+#define DIRECT3D_VERSION 0x0700
 #include "d3d.h"
 
 /*-----------------------------------------------------------------------------

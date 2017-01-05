@@ -424,10 +424,10 @@ void USetupDefinition::DoInstallSteps( FInstallPoll* Poll )
 	// Handle all install steps.
 	BeginSteps();
 	TotalBytes = 0;
-	InstallTree( TEXT("ProcessPreCopy"),  Poll, (INSTALL_STEP)ProcessPreCopy  );
-	InstallTree( TEXT("ProcessCopy"),     Poll, (INSTALL_STEP)ProcessCopy     );
-	InstallTree( TEXT("ProcessExtra"),    Poll, (INSTALL_STEP)ProcessExtra    );
-	InstallTree( TEXT("ProcessPostCopy"), Poll, (INSTALL_STEP)ProcessPostCopy );
+	InstallTree( TEXT("ProcessPreCopy"),  Poll, (INSTALL_STEP)&USetupDefinition::ProcessPreCopy  );
+	InstallTree( TEXT("ProcessCopy"),     Poll, (INSTALL_STEP)&USetupDefinition::ProcessCopy     );
+	InstallTree( TEXT("ProcessExtra"),    Poll, (INSTALL_STEP)&USetupDefinition::ProcessExtra    );
+	InstallTree( TEXT("ProcessPostCopy"), Poll, (INSTALL_STEP)&USetupDefinition::ProcessPostCopy );
 	Exists = FolderExists = 1;
 	RegistryFolder = DestPath;
 	if( IsMasterProduct )
@@ -456,8 +456,8 @@ void USetupDefinition::DoUninstallSteps( FInstallPoll* Poll )
 	// Handle all uninstall steps.
 	BeginSteps();
 	UninstallTotal=0, UninstallCount=0;
-	UninstallTree( TEXT("ProcessUninstallCountTotal"), Poll, ProcessUninstallCountTotal );
-	UninstallTree( TEXT("ProcessUninstallRemove"),     Poll, ProcessUninstallRemove );
+	UninstallTree( TEXT("ProcessUninstallCountTotal"), Poll, &USetupDefinition::ProcessUninstallCountTotal );
+	UninstallTree( TEXT("ProcessUninstallRemove"),     Poll, &USetupDefinition::ProcessUninstallRemove );
 	TMultiMap<FString,FString>* Map = GConfig->GetSectionPrivate( TEXT("Setup"), 0, 0, *(DestPath * TEXT("System") * SETUP_INI) );
 	for( TArray<USetupGroup*>::TIterator GroupIt(UninstallComponents); GroupIt; ++GroupIt )
 	{

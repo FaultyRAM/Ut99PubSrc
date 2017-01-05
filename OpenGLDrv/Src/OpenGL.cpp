@@ -523,7 +523,8 @@ class UOpenGLRenderDevice : public URenderDevice
 		SupportsDistanceFog	= 0;
 
 		// Get list of device modes.
-		for( INT i=0; ; i++ )
+		INT i;
+		for( i=0; ; i++ )
 		{
 #if UNICODE
 			if( !GUnicodeOS )
@@ -1035,7 +1036,8 @@ class UOpenGLRenderDevice : public URenderDevice
 			INT Records = glRenderMode( GL_RENDER );
 			INT* Ptr = &GLHitData(0);
 			DWORD BestDepth = MAXDWORD;
-			for( INT i=0; i<Records; i++ )
+			INT i;
+			for( i=0; i<Records; i++ )
 			{
 				INT   NameCount = *Ptr++;
 				DWORD MinDepth  = *Ptr++;

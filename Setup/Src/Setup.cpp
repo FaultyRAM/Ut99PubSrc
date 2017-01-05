@@ -282,7 +282,7 @@ class WFailedRequirement : public WDialog
 	WFailedRequirement( WWindow* InOwnerWindow, USetupDefinition* Manager, USetupProduct* InProduct, const TCHAR* InTitle, const TCHAR* InMessage )
 	: WDialog	  ( TEXT("FailedRequirement"), IDDIALOG_FailedRequirement, InOwnerWindow )
 	, FailedText  ( this, IDC_FailedMessage )
-	, OkButton    ( this, IDOK, FDelegate(this,(TDelegate)EndDialogTrue) )
+	, OkButton    ( this, IDOK, FDelegate(this,(TDelegate)&WFailedRequirement::EndDialogTrue) )
 	, ProductInfo ( this, Manager, InProduct )
 	, Title       ( InTitle )
 	, Message     ( InMessage )
@@ -595,7 +595,7 @@ class WFilerPageCdFolder : public WWizardPage, public FControlSnoop
 	, Manager          ( InOwner->Manager )
 	, FolderDescription( this, IDC_FolderDescription )
 	, FolderHolder     ( this, IDC_FolderHolder )
-	, DefaultButton    ( this, IDC_Default, FDelegate(this,(TDelegate)OnReset) )
+	, DefaultButton    ( this, IDC_Default, FDelegate(this,(TDelegate)&WFilerPageCdFolder::OnReset) )
 	, Folder           ( this, IDC_Folder )
 	, SpaceAvailable   ( this, IDC_SpaceAvailable )
 	, SpaceAvailableMsg( this, IDC_SpaceAvailableMessage )
@@ -614,7 +614,7 @@ class WFilerPageCdFolder : public WWizardPage, public FControlSnoop
 		FString Saved      = Manager->RefPath;
 		Manager->CdOk      = TEXT("");
 		Manager->RefPath   = Folder.GetText();
-		Manager->InstallTree( TEXT("ProcessVerifyCd"), &GNoPoll, USetupDefinition::ProcessVerifyCd );
+		Manager->InstallTree( TEXT("ProcessVerifyCd"), &GNoPoll, &USetupDefinition::ProcessVerifyCd );
 		if( Manager->CdOk!=TEXT("") )
 		{
 			MessageBox( *Owner, *FString::Printf(LineFormat(LocalizeError(TEXT("WrongCd"))),*Manager->Product,*Manager->CdOk), LocalizeError(TEXT("WrongCdTitle")), MB_OK );
@@ -638,7 +638,7 @@ class WFilerPageCdFolder : public WWizardPage, public FControlSnoop
 
 		// Only show if there are installable files stored as deltas relative to version on CD.
 		Manager->AnyRef = 0;
-		Manager->InstallTree( TEXT("ProcessCheckRef"), &GNoPoll, USetupDefinition::ProcessCheckRef );
+		Manager->InstallTree( TEXT("ProcessCheckRef"), &GNoPoll, &USetupDefinition::ProcessCheckRef );
 		return Manager->AnyRef;
 
 		unguard;
@@ -786,7 +786,7 @@ class WFilerPageFolder : public WWizardPage, public FControlSnoop
 	, Manager          ( InOwner->Manager )
 	, FolderDescription( this, IDC_FolderDescription )
 	, FolderHolder     ( this, IDC_FolderHolder )
-	, DefaultButton    ( this, IDC_Default, FDelegate(this,(TDelegate)OnReset) )
+	, DefaultButton    ( this, IDC_Default, FDelegate(this,(TDelegate)&WFilerPageFolder::OnReset) )
 	, Folder           ( this, IDC_Folder )
 	, SpaceAvailable   ( this, IDC_SpaceAvailable )
 	, SpaceRequired    ( this, IDC_SpaceRequired )
@@ -853,7 +853,7 @@ class WFilerPageFolder : public WWizardPage, public FControlSnoop
 		WWizardPage::OnInitDialog();
 		FolderDescription.SetText( *FString::Printf(LineFormat(Localize("IDDIALOG_FilerPageFolder",Manager->Patch ? "IDC_FolderDescriptionPatch" : "IDC_FolderDescription")), Manager->LocalProduct ) );
 		OnReset();
-		Folder.ChangeDelegate=FDelegate(this,(TDelegate)OnChange);
+		Folder.ChangeDelegate=FDelegate(this,(TDelegate)&WFilerPageFolder::OnChange);
 		unguard;
 	}
 	void OnChange()
@@ -1018,7 +1018,7 @@ class WFilerPageWelcome : public WWizardPage
 	, LanguageList  ( this, IDC_LanguageList )
 	{
 		guard(WFilerPageWelcome::WFilerPageWelcome);
-		LanguageList.SelectionChangeDelegate = FDelegate(this,(TDelegate)OnUserChangeLanguage);
+		LanguageList.SelectionChangeDelegate = FDelegate(this,(TDelegate)&WFilerPageWelcome::OnUserChangeLanguage);
 		unguard;
 	}
 
@@ -1265,11 +1265,11 @@ class WFilerPageAutoPlay : public WWizardPage
 	, Owner             ( InOwner )
 	, Manager           ( InOwner->Manager )
 	, Options           ( this, IDC_Options )
-	, PlayButton        ( this, IDC_Play,         FDelegate(this,(TDelegate)OnPlay),         CBFF_ShowOver|CBFF_UrlStyle )
-	, ReleaseNotesButton( this, IDC_ReleaseNotes, FDelegate(this,(TDelegate)OnReleaseNotes), CBFF_ShowOver|CBFF_UrlStyle )
-	, WebButton         ( this, IDC_Web,          FDelegate(this,(TDelegate)OnWeb),          CBFF_ShowOver|CBFF_UrlStyle )
-	, ReinstallButton   ( this, IDC_Reinstall,    FDelegate(this,(TDelegate)OnInstall),      CBFF_ShowOver|CBFF_UrlStyle )
-	, UninstallButton   ( this, IDC_Uninstall,    FDelegate(this,(TDelegate)OnUninstall),    CBFF_ShowOver|CBFF_UrlStyle )
+	, PlayButton        ( this, IDC_Play,         FDelegate(this,(TDelegate)&WFilerPageAutoPlay::OnPlay),         CBFF_ShowOver|CBFF_UrlStyle )
+	, ReleaseNotesButton( this, IDC_ReleaseNotes, FDelegate(this,(TDelegate)&WFilerPageAutoPlay::OnReleaseNotes), CBFF_ShowOver|CBFF_UrlStyle )
+	, WebButton         ( this, IDC_Web,          FDelegate(this,(TDelegate)&WFilerPageAutoPlay::OnWeb),          CBFF_ShowOver|CBFF_UrlStyle )
+	, ReinstallButton   ( this, IDC_Reinstall,    FDelegate(this,(TDelegate)&WFilerPageAutoPlay::OnInstall),      CBFF_ShowOver|CBFF_UrlStyle )
+	, UninstallButton   ( this, IDC_Uninstall,    FDelegate(this,(TDelegate)&WFilerPageAutoPlay::OnUninstall),    CBFF_ShowOver|CBFF_UrlStyle )
 	, CompleteLabel     ( this, IDC_Complete )
 	, CompleteFrame     ( this, IDC_Divider )
 	, ShowInstallOptions( InShowInstallOptions )

@@ -139,7 +139,7 @@ class ENGINE_API UBspNodes : public UObject
 			_Zones[i].ZoneActor    = NULL;
 			_Zones[i].Connectivity = ((QWORD)1)<<i;
 			_Zones[i].Visibility   = ~(QWORD)0;
-		}	
+		}
 		unguard;
 	}
 	void Serialize( FArchive& Ar )
@@ -152,7 +152,8 @@ class ENGINE_API UBspNodes : public UObject
 			Ar << DbNum << DbMax;
 			Element.Empty( DbNum );
 			Element.AddZeroed( DbNum );
-			for( INT i=0; i<Element.Num(); i++ )
+			INT i;
+			for( i=0; i<Element.Num(); i++ )
 				Ar << Element(i);
 			Ar << AR_INDEX(_NumZones);
 			for( i=0; i<_NumZones; i++ )

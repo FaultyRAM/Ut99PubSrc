@@ -310,7 +310,8 @@ public:
 		while( Total-- > 0 )
 		{
 			check(!Reader.AtEnd());
-			for( FHuffman* Node=&Root; Node->Ch==-1; Node=Node->Child(Reader.ReadBit()) );
+			FHuffman* Node;
+			for( Node=&Root; Node->Ch==-1; Node=Node->Child(Reader.ReadBit()) );
 			BYTE B = Node->Ch;
 			Out << B;
 		}

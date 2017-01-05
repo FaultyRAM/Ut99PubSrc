@@ -596,7 +596,8 @@ class DLL_EXPORT UD3DRenderDevice : public URenderDevice
 		if( Direct3DDevice7 )
 		{
 			guard(UnsetTextures);
-			for( INT i=0; i<DeviceDesc7.wMaxSimultaneousTextures; i++ )
+			INT i;
+			for( i=0; i<DeviceDesc7.wMaxSimultaneousTextures; i++ )
 				Direct3DDevice7->SetTexture( i, NULL );
 			for( FPixFormat* Fmt=FirstPixelFormat; Fmt; Fmt=Fmt->Next )
 			{
@@ -768,7 +769,8 @@ class DLL_EXPORT UD3DRenderDevice : public URenderDevice
 			FUnrealVertex* V=VertsUWindow.Lock(VertexCount);
 			D3DCOLOR clr = FColor(Stages[0].MaxColor * Stages[1].MaxColor).TrueColor() | 0xff000000;
 			INT n=0;
-			for( FSavedPoly* Poly=Facet.Polys; Poly; Poly=Poly->Next )
+			FSavedPoly* Poly;
+			for( Poly=Facet.Polys; Poly; Poly=Poly->Next )
 			{
 				for( INT i=0; i<Poly->NumPts; i++, n++, V++ )
 				{
@@ -821,7 +823,8 @@ class DLL_EXPORT UD3DRenderDevice : public URenderDevice
 			FUnrealVertex* V=VertsUWindow.Lock(VertexCount);
 			D3DCOLOR Clr = UpdateModulation( ModulateThings, FinalColor, Stages[0].MaxColor );
 			INT n=0;
-			for( FSavedPoly* Poly=Facet.Polys; Poly; Poly=Poly->Next )
+			FSavedPoly* Poly;
+			for( Poly=Facet.Polys; Poly; Poly=Poly->Next )
 			{
 				// Set up vertices.
 				for( INT i=0; i<Poly->NumPts; i++, n++, V++ )
@@ -1030,7 +1033,8 @@ class DLL_EXPORT UD3DRenderDevice : public URenderDevice
 
 			FUnrealVertex* V=VertsUWindow.Lock(VertexCount);
 			INT n = 0;
-			for( FSavedPoly* Poly=Facet.Polys; Poly; Poly=Poly->Next )
+			FSavedPoly* Poly;
+			for( Poly=Facet.Polys; Poly; Poly=Poly->Next )
 			{
 				for( INT i=0; i<Poly->NumPts; i++, n++, V++ )
 				{
@@ -1856,7 +1860,8 @@ class DLL_EXPORT UD3DRenderDevice : public URenderDevice
 		guard(UD3DRenderDevice::SetTexture);
 		UBOOL Thrash=0; 
 		INT HashIndex =  (DWORD) (Info.CacheID >> 12) & (ARRAY_COUNT(CachedTextures)-1);  //;(7*(DWORD)Info.CacheID+(DWORD)(Info.CacheID>>32)) & (ARRAY_COUNT(CachedTextures)-1);
-		for( FTexInfo* ti=CachedTextures[HashIndex]; ti && ti->CacheID!=Info.CacheID; ti=ti->HashNext );
+		FTexInfo* ti;
+		for( ti=CachedTextures[HashIndex]; ti && ti->CacheID!=Info.CacheID; ti=ti->HashNext );
 		if( !ti )
 		{
 			// Get filler object.
