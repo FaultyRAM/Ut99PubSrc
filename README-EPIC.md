@@ -24,9 +24,8 @@ doesn't work.
 
 ## How Each Package (.DLL) Is Structured
 
-Unreal packages are described in detail in the [Package Documentation](http://unreal.epicgames.com/Packages.htm).
-The source code for each package (for example, MyPackage) that contains a C++ .DLL
-component is as follows:
+Unreal packages are described in detail in the [Package Documentation][1]. The source code
+for each package (for example, MyPackage) that contains a C++ .DLL component is as follows:
 
 * C:\Unreal\MyPackage\Src\MyPackage.dsp: Microsoft Developer Studio project files.
 * C:\Unreal\MyPackage\Src\*.cpp: C++ source code.
@@ -55,7 +54,9 @@ component is as follows:
 
 ## Additional Documentation
 
-Visit the [Unreal Technology Page](http://unreal.epicgames.com/) for our complete online
-documentation.
+Visit the [Unreal Technology Page][2] for our complete online documentation.
 
 ## End
+
+[1]: Help/PACKAGES.md
+[2]: https://web.archive.org/web/20040728054606/http://unreal.epicgames.com/
