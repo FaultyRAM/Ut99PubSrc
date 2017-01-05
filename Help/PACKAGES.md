@@ -26,7 +26,7 @@ extension. A `.utx` file contains many (tens or hundreds) of textures which are 
 theme, such as the `SkyCity.utx` texture package.
 
 Unreal's file format is based on packages because packages enable the game engine and content to be
-developed modularly. Artists maintain their textures in .utx files; the programmers working on the
+developed modularly. Artists maintain their textures in `.utx` files; the programmers working on the
 engine and game maintain separate packages of UnrealScript classes; people in the Unreal community
 can create and distribute their own packages online; and so on.
 
